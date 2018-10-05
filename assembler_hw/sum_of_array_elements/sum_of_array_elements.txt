@@ -59,7 +59,7 @@ _loop:
     cmp  ecx, 1 
     jl _end
     xor eax, eax
-    mov al, [esi] ; в eax текущий элемент массива
+    mov al, [esi]
     jmp _summ
   
 _end:
@@ -71,7 +71,7 @@ _end:
     
 _summ:
     add  edx, eax
-    inc  esi ; адрес следующего элемента
+    inc  esi
     dec ecx
     jmp  _loop
   
