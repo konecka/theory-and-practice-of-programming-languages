@@ -39,9 +39,7 @@ _loop:
     mov al, [esi]
     
     cmp al, 'a'
-    jb _notLower
-    
-    
+    jb _notLower  
     cmp al, 'z'
     ja _notLower
     
@@ -65,8 +63,6 @@ _toUpper:
     dec ecx
     jmp _loop
     
-    
-  
 section .data
     array db "Hello WorLD!"
     len equ $ - array
