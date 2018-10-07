@@ -1,0 +1,75 @@
+%macro pushd 0
+    push edx
+    push ecx
+    push ebx
+    push eax
+%endmacro
+
+%macro popd 0
+    pop eax
+    pop ebx
+    pop ecx
+    pop edx
+%endmacro
+
+%macro print 2
+    pushd
+    mov edx, %1
+    mov ecx, %2
+    mov ebx, 1
+    mov eax, 4
+    int 0x80
+    popd
+%endmacro
+
+
+section .text
+
+global _start
+    
+_start:
+    mov  esi, array
+    mov ecx, len
+    
+_loop:
+    cmp  ecx, 1
+    jl _end
+    
+    xor eax, eax
+    mov al, [esi]
+    
+    cmp al, 'a'
+    jb _notLower
+    
+    
+    cmp al, 'z'
+    ja _notLower
+    
+    jmp _toUpper
+    
+_end:
+    print len, array 
+    mov eax, 1
+    int 0x80
+
+_notLower:
+    inc esi
+    dec ecx
+    jmp _loop
+    
+_toUpper:
+    and al, 1011111b
+    mov [esi],al
+    
+    inc esi
+    dec ecx
+    jmp _loop
+    
+    
+  
+section .data
+    array db "Hello WorLD!"
+    len equ $ - array
+
+segment .bss
+    count resd 1
