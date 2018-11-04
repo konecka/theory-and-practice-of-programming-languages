@@ -25,12 +25,13 @@ def check(landscape, y, x):
             break
     return (l and r)
 
-def get_water_blocks(landscape, slandscape, max_height, l_height, r_height):
+def get_water_blocks(landscape, slandscape, max_height):
     
     water_blocks = 0 
     
-    landscape[0:max_height-l_height+1, 0] = -2
-    landscape[0:max_height-r_height, len(slandscape)-1] = -2
+    # по бокам острова не может находиться вода
+    landscape[0:max_height-int(slandscape[0][0])+1, 0] = -2
+    landscape[0:max_height-int(slandscape[len(slandscape)-1][0]), len(slandscape)-1] = -2
 
     for y in range(1, landscape.shape[1]):
         index = 0
@@ -53,13 +54,7 @@ if __name__ == "__main__":
     
     # самая высокая часть острова
     max_height = int(max(cols))
-    
-    #высота левого столбца
-    l_height = int(cols[1])
-    
-    #высота правого столбца
-    r_height = int(cols[-1])
-    
+     
     landscape = np.ones((max_height, len(cols)))
     
     i=0
@@ -72,7 +67,7 @@ if __name__ == "__main__":
         slandscape.append([cols[i], i])
     
     
-    water_blocks = get_water_blocks(landscape, slandscape, max_height, l_height, r_height)
+    water_blocks = get_water_blocks(landscape, slandscape, max_height)
     
     print(water_blocks)
     
