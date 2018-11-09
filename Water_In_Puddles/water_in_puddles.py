@@ -10,14 +10,14 @@ def check(landscape, y, x):
     l = r = False
     
     # проверка соседей слева на наличие "земли"   
-    for i in range(x-1, 0, -1):
+    for i in range(x-1, -1, -1):
         if (landscape[y, i] == -2):
             return False
         elif(landscape[y, i] == 0 or landscape[y, i] == -1):
             l = True
             break
     # проверка соседей справа на наличие "земли"     
-    for i in range(x+1, landscape.shape[1]):
+    for i in range(x+1, landscape.shape[1]+1):
         if (landscape[y, i] == -2):
             return False
         elif(landscape[y, i] == 0 or landscape[y, i] == -1):
@@ -30,11 +30,12 @@ def get_water_blocks(landscape, slandscape, max_height):
     water_blocks = 0 
     
     # по бокам острова не может находиться вода
-    landscape[0:max_height-int(slandscape[0][0])+1, 0] = -2
+    landscape[0:max_height-int(slandscape[0][0]), 0] = -2
     landscape[0:max_height-int(slandscape[len(slandscape)-1][0]), len(slandscape)-1] = -2
-
-    for y in range(1, landscape.shape[1]):
+    
+    for y in range(0, landscape.shape[0]):
         index = 0
+        
         for col in slandscape[1:-1]:
             index +=1
             if(col[0] == y):
