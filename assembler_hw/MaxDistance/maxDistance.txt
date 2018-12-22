@@ -70,11 +70,9 @@ _loop_one:
         mov ebx, [esi+ecx]
     pop ecx
     
-    
     push ecx
     push edx
     push ebx
-    
     
     mov ecx, 0
 
@@ -101,9 +99,9 @@ _loop_one:
         
         sub edx, ebx
         imul edx, edx
-        add eax, edx ; выражение под корнем
+        add eax, edx
         
-        mov [num], eax ; num - выражение под корнем
+        mov [num], eax
         
         finit
         fild dword[num]
